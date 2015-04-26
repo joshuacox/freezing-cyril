@@ -1,0 +1,6 @@
+#!/bin/bash
+# concatenate PDF files together
+# usage:  pdfcat 1.pdf 2.pdf
+# OR: pdfcat *.pdf
+# outputs a finished.pdf in the current directory
+gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=finished.pdf $@

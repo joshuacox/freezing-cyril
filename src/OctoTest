@@ -1,0 +1,36 @@
+#!/bin/bash
+#OCTOHOST=serve.octodev.io
+# given an IP address of an octohost
+# this script will load that IP up with docker images
+# usage: OctoTest 1.2.3.4
+OCTOHOST=$1
+cd /tmp
+git clone git@github.com:octohost/jekyll.git && cd jekyll
+git remote add octo git@$OCTOHOST:jekyll.git
+time git push octo master
+chromium http://jekyll.$OCTOHOST.xip.io/ &
+cd /tmp
+git clone git@github.com:octohost/harp.git && cd harp
+git remote add octo git@$OCTOHOST:harp.git
+time git push octo master
+chromium http://harp.$OCTOHOST.xip.io/ &
+cd /tmp
+git clone git@github.com:octohost/mojolicious-app.git && cd mojolicious-app
+git remote add octo git@$OCTOHOST:mojolicious-app.git
+time git push octo master
+chromium http://mojolicious-app.$OCTOHOST.xip.io/ &
+cd /tmp
+git clone git@github.com:octohost/metalsmith.git && cd metalsmith
+git remote add octo git@$OCTOHOST:metalsmith.git
+time git push octo master
+chromium http://metalsmith.$OCTOHOST.xip.io/ &
+cd /tmp
+git clone git@github.com:octohost/wintersmith.git && cd wintersmith
+git remote add octo git@$OCTOHOST:wintersmith.git
+time git push octo master
+chromium http://wintersmith.$OCTOHOST.xip.io/ &
+cd /tmp
+git clone git@github.com:octohost/martini.git && cd martini
+git remote add octo git@$OCTOHOST:martini.git
+time git push octo master
+chromium http://martini.$OCTOHOST.xip.io/ &

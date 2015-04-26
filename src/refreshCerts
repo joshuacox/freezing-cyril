@@ -1,0 +1,22 @@
+#!/bin/bash
+# gen certs for octohost
+./generateSelfSignedCert mastermind webhosting.coop
+octo config:set whcredmine/SSL_FORCED 'true'
+octo config:set whcredmine/SSL_CERTIFICATE '/etc/nginx/certs/mastermind.webhosting.coop.crt'
+octo config:set whcredmine/SSL_KEY '/etc/nginx/private/mastermind.webhosting.coop.key'
+./generateSelfSignedCert meirowitz webhosting.coop
+octo config:set whcredmine1/SSL_FORCED 'true'
+octo config:set whcredmine1/SSL_CERTIFICATE '/etc/nginx/certs/meirowitz.webhosting.coop.crt'
+octo config:set whcredmine1/SSL_KEY '/etc/nginx/private/meirowitz.webhosting.coop.key'
+./generateSelfSignedCert townhall webhosting.coop
+octo config:set townhall/SSL_FORCED 'true'
+octo config:set townhall/SSL_CERTIFICATE '/etc/nginx/certs/townhall.webhosting.coop.crt'
+octo config:set townhall/SSL_KEY '/etc/nginx/private/townhall.webhosting.coop.key'
+./generateSelfSignedCert athena thalhalla.net
+octo config:set athena/SSL_FORCED 'true'
+octo config:set athena/SSL_CERTIFICATE '/etc/nginx/certs/athena.thalhalla.net.crt'
+octo config:set athena/SSL_KEY '/etc/nginx/private/athena.thalhalla.net.key'
+./generateSelfSignedCert zariztest thalhalla.net
+octo config:set zariztest/SSL_FORCED 'true'
+octo config:set zariztest/SSL_CERTIFICATE '/etc/nginx/certs/zariztest.thalhalla.net.crt'
+octo config:set zariztest/SSL_KEY '/etc/nginx/private/zariztest.thalhalla.net.key'

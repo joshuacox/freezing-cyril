@@ -1,0 +1,3 @@
+#!/bin/bash
+sshfs -p 16222 root@65.67.51.186:/ /mnt/Ichabod
+

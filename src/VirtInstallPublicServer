@@ -1,0 +1,2 @@
+#!/bin/bash
+virt-install -n $1 -r 4096 --vcpus=8,maxvcpus=16 --disk path=/behemoth/$1.img,cache=writethrough,bus=virtio,size=30  --network=bridge:br0 --vnc --noautoconsole --autostart --os-type=linux --os-variant=debianwheezy --accelerate --hvm --cpu host --prompt --check-cpu -c /behemoth/isoz/debian-7.0.0-amd64-CD-1.iso

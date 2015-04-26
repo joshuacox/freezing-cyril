@@ -1,0 +1,60 @@
+#!/bin/sh
+# http://www.codenes.com/blog/?p=300
+
+ 
+echodo()
+{
+    echo "${@}"
+    (${@})
+}
+ 
+yearmon()
+{
+    date '+%Y%m%d'
+}
+ 
+fqdn()
+{
+    (nslookup ${1} 2>&1 || echo Name ${1}) | tail -3 | grep Name| sed -e 's,.*e:[ \t]*,,'
+}
+ 
+C=US
+ST=Texas
+L=Austin
+O=Webhosting.coop
+OU=townhall
+# HOST=${1:-`hostname`}
+HOST=townhall.webhosting.coop
+DATE=`yearmon`
+#CN=`fqdn $HOST`
+CN=townhall.webhosting.coop
+
+csr="${HOST}.csr"
+key="${HOST}.key"
+cert="${HOST}.cert"
+
+# Create the certificate signing request
+# openssl req -config /etc/pki/tls/openssl.cnf -new -passin pass:password -passout pass:password -out $csr <<EOF
+openssl req -config /etc/ssl/openssl.cnf -nodes -new -out $csr <<EOF
+${C}
+${ST}
+${L}
+${O}
+${OU}
+${CN}
+$USER@${CN}
+.
+.
+EOF
+echo ""
+
+[ -f ${csr} ] && echodo openssl req -text -noout -in ${csr}
+echo ""
+
+# Create the Key
+# openssl rsa -in privkey.pem -passin pass:password -passout pass:password -out ${key}
+
+openssl rsa -in privkey.pem -out ${key}
+
+# Create the Certificate
+openssl x509 -in ${csr} -out ${cert} -req -signkey ${key} -days 1000

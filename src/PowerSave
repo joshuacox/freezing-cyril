@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+for i in {0..7}; do cpufreq-set -c $i -g powersave; cpufreq-set -c $i --max 800MHz; cpufreq-set -c $i --min 800MHz; echo "cpu $i set to powersave"; done
+cpufreq-info

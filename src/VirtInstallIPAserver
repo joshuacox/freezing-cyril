@@ -1,0 +1,2 @@
+#!/bin/bash
+virt-install -n $1 -r 4096 --vcpus=2,maxvcpus=6 --disk path=/behemoth/$1.img,cache=writethrough,bus=virtio,size=30  --network=bridge:br0 --vnc --noautoconsole --autostart --os-type=linux --os-variant=fedora16 --accelerate --hvm --cpu host --prompt --check-cpu -c /behemoth/isoz/Fedora-Live-Desktop-x86_64-20-1.iso

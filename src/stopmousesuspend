@@ -1,0 +1,9 @@
+#!/bin/bash
+echo 'Disabling auto suspending USB'
+for i in /sys/bus/usb/devices/*/power/autosuspend;
+  do echo 2 > $i;
+done
+echo 'Disable USB autosuspend'
+for foo in /sys/bus/usb/devices/*/power/level;
+  do echo on > $foo;
+done
