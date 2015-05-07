@@ -1,2 +1,8 @@
 #!/bin/bash
+# set the audio volume
+if [[ $# -eq 0 ]] ; then
+    echo 'USAGE: au PERCENTAGE'
+    echo 'where percentage is 0-100 i.e. how loud you want the volume to be'
+    exit 0
+fi
 amixer -q sset 'Master' $1%
