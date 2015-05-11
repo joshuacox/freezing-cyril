@@ -1,2 +1,2 @@
 #!/bin/bash
-virt-install -n $1 -r 1024 --vcpus=1,maxvcpus=4 --disk path=/mktulu/KVMimages/$1.raw,cache=writethrough,device=disk,bus=virtio  --network=bridge:oltorf --vnc --noautoconsole --autostart --os-type=linux --os-variant=debianwheezy --accelerate --hvm --cpu host --prompt --check-cpu --import
+virt-install -n $1 -r 1024 --vcpus=1,maxvcpus=4 --disk path=/mktulu/KVMimages/$1.raw,cache=writethrough,device=disk,bus=virtio  --network=network:oltorf --vnc --noautoconsole --autostart --os-type=linux --os-variant=debianwheezy --accelerate --hvm --cpu host --prompt --check-cpu --import

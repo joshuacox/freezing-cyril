@@ -1,0 +1,4 @@
+#!/bin/bash
+rm /etc/nginx/containers/*
+rm /etc/nginx/templates/*
+octo status|cut -d':' -f1 |xargs -n1 -I{} octo restart {}
