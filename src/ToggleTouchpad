@@ -1,4 +1,7 @@
 #!/bin/bash
+# answer seen on askubuntu:
+# http://askubuntu.com/questions/65951/how-to-disable-the-touchpad
+# was broken, I fixed it by adding a character class
 
 declare -i ID
 ID=`xinput list | grep -Eo 'TouchPad\s*id\=[0-9]{1,2}' | grep -Eo '[0-9]{1,2}'`
