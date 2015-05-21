@@ -1,5 +1,4 @@
 #!/bin/bash
-# give it one docker hash
-# and this will exec bash
-# inside the last docker dash
+#  this will exec bash
+# inside the last docker container
 docker exec -it `docker ps -ql` /bin/bash
