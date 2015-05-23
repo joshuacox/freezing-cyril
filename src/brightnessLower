@@ -1,0 +1,14 @@
+#!/bin/bash
+# set the brightness for the LCD screen
+# give it a number between 0-100 and it will set the screen to that brightness
+#
+BRIGHTPATH=$(find /sys/devices -iname max_brightness |grep backlight|sed 's/max_brightness//'|sed 's/\/$//')
+MAX_BRIGHTNESS=$(cat $BRIGHTPATH/max_brightness)
+CURRENT_BRIGHTNESS=$(cat $BRIGHTPATH/brightness)
+#BRIGHTNESS_TARGET=$(perl -le "printf '%2d', $MAX_BRIGHTNESS * ($1 / 100)")
+BRIGHTNESS_TARGET=$(echo "$CURRENT_BRIGHTNESS  - $MAX_BRIGHTNESS / 10"|bc)
+BRIGHTNESS_PERCENTAGE=$(perl -le "printf '%2d', $BRIGHTNESS_TARGET  / $MAX_BRIGHTNESS * 100")
+# tell them what we are setting 
+echo -n "$BRIGHTNESS_PERCENTAGE% which is "
+echo -n $BRIGHTNESS_TARGET | sudo tee $BRIGHTPATH/brightness
+echo "/$MAX_BRIGHTNESS"
