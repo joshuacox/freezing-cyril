@@ -1,0 +1,2 @@
+#!/bin/bash
+feh --bg-scale --no-fehbg `find ~/wallpapers/ -follow -regex ".*\.\(jpg\|gif\|png\|jpeg\)"| shuf -n1`
