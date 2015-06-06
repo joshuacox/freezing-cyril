@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "Top 10 IP Addresses with the most TCP connections"
+netstat -tn 2>/dev/null  | awk '{print $5}' | cut -d: -f1 | grep -v Address|grep -v servers | grep -v "^[[:space:]]*$" | sort | uniq -c | sort -nr|head
+echo "Top 10 IP Addresses with the most UDP connections"
+netstat -un 2>/dev/null  | awk '{print $5}' | cut -d: -f1 | grep -v Address|grep -v servers | grep -v "^[[:space:]]*$" | sort | uniq -c | sort -nr|head
+echo 'mysqladmin -v proc'
+mysqladmin -v proc
+echo 'mysqladmin -v stat'
+mysqladmin -v stat
+
