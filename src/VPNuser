@@ -1,0 +1,5 @@
+ #!/bin/bash
+VPNUSER=$1
+OVPN_DATA="ovpn-data"
+docker run --volumes-from $OVPN_DATA --rm -it kylemanna/openvpn easyrsa build-client-full $VPNUSER nopass 
+docker run --volumes-from $OVPN_DATA --rm kylemanna/openvpn ovpn_getclient $VPNUSER > $VPNUSER.ovpn
