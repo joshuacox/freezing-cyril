@@ -1,17 +1,18 @@
 #!/bin/bash
 #mkdir /mnt/$1
-if [ $# -ne 2 ]; then
+if [ $# -ne 3 ]; then
         # Print usage
         echo 'wrong!!! bad operator!!!
         usage:
-        NewServer.sh SERVERNAME IPADDRESS|HOSTNAME
+        NewServer.sh SERVERNAME IPADDRESS|HOSTNAME USERNAME
         e.g.
-        NewServer.sh Saruman 65.67.51.189
+        NewServer.sh Saruman 65.67.51.189 root
         '
             exit 1
 fi
 echo "
 my Name is $1 and my IP address is $2
+your username is $3
 I will now complete these commands:
 mkdir /mnt/$1
 and make these scripts
@@ -21,10 +22,10 @@ and make these scripts
 
 mkdir /mnt/$1
 echo "#!/bin/bash
-sshfs -p 16222 root@$2:/ /mnt/$1
+sshfs -p 16222 $3@$2:/ /mnt/$1
 ">/usr/local/bin/Mount$1
 chmod +x /usr/local/bin/Mount$1
 echo "#!/bin/bash
-ssh -p 16222 root@$2 \$@
+ssh -p 16222 $3@$2 \$@
 ">/usr/local/bin/$1
 chmod +x /usr/local/bin/$1
