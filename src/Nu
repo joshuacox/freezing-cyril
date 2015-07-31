@@ -4,9 +4,9 @@ if [ $# -ne 3 ]; then
         # Print usage
         echo 'wrong!!! bad operator!!!
         usage:
-        NewServer.sh SERVERNAME IPADDRESS|HOSTNAME USERNAME
+        Nu SERVERNAME IPADDRESS|HOSTNAME USERNAME
         e.g.
-        NewServer.sh Saruman 65.67.51.189 root
+        Nu Saruman 65.67.51.189 root
         '
             exit 1
 fi
