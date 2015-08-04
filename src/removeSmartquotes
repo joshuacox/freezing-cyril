@@ -1,0 +1,3 @@
+#!/bin/bash
+# removes smartquotes from files permanently without hesitation!
+sed -i 's/[””]/"/g' $@
