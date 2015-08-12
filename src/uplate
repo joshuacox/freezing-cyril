@@ -1,0 +1,19 @@
+#!/bin/bash
+# uplate -- UPLoad a file or directory
+# into the amazon cloud drive
+# in a directory by dATE
+if [ $# -ne 1 ]; then
+        # Print usage
+        echo 'wrong!!! bad operator!!!
+        usage:
+        uplate NAME
+        where NAME is a file or directory
+        e.g.
+        uplate foodir
+        - or -
+        uplate bar.tar.gz
+        '
+            exit 1
+fi
+acd_cli mkdir  /`date -I`
+acd_cli upload -x 2 $1 /`date -I`/
