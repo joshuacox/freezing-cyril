@@ -1,0 +1,4 @@
+#!/bin/bash
+# to be used with Sony vixia HF M30 A
+# for i in "$i"*.MTS; do name="${i%.*}"; ffmpeg -i "$i" -vcodec libxvid -r 29.97 -b 35000K -acodec libmp3lame -ac 2 -ab 256k -ar 48000 -deinterlace -s 1920x1080 "${name}.avi"; done
+for i in "$i"*.MTS; do name="${i%.*}"; avconv -i "$i" -vcodec libxvid -r 59.94 -b 25000K -acodec libmp3lame -ac 2 -ab 256k -ar 48000 -s 1440x1080 "${name}.avi"; done
