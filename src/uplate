@@ -16,4 +16,6 @@ if [ $# -ne 1 ]; then
             exit 1
 fi
 acd_cli mkdir  /`date -I`
-acd_cli upload -x 2 $1 /`date -I`/
+ls -Rlh $1
+vv acd_cli upload -x 2 $1 /`date -I`/
+
