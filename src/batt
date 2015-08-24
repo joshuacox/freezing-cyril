@@ -1,0 +1,11 @@
+#!/bin/bash
+BATT_FULL=$(cat /sys/class/power_supply/BAT0/charge_full)
+BATT_NOW=$(cat /sys/class/power_supply/BAT0/charge_now)
+echo -n 'capacity is '
+cat /sys/class/power_supply/BAT0/capacity
+echo -n 'level is '
+cat /sys/class/power_supply/BAT0/capacity_level
+echo -n 'status is '
+cat /sys/class/power_supply/BAT0/status
+# perl -le "print $BATT_NOW / $BATT_FULL"
+echo "100.0*$BATT_NOW/$BATT_FULL"|bc -l
