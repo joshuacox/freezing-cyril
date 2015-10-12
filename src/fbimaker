@@ -1,0 +1,6 @@
+#! /bin/bash
+# testing this from techrepublic
+# http://www.techrepublic.com/blog/linux-and-open-source/how-to-create-photo-slideshows-with-as-little-software-as-possible/
+PHOTODIR=$1
+INTERVAL=5
+fbi -noverbose -a -t $INTERVAL -u `find $PHOTODIR -iname "*.jpg"`
