@@ -1,0 +1,5 @@
+#!/bin/bash
+TMP_DIR=$(mktemp -d --suffix='.scrap')
+CUR_RES=$(xrandr  | grep \* | cut -d' ' -f4)
+avconv -video_size $CUR_RES -framerate 30 -f x11grab -i :0.0  $TMP_DIR/scrap.mp4
+echo "vlc $TMP_DIR/scrap.mp4">>/tmp/playscrap.sh

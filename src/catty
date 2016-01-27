@@ -1,0 +1,3 @@
+#!/bin/cat
+# It's important to note that it is up to the interpreter to ignore the shebang line; thus, a script consisting of thus simply echos all of the lines (including the shebang line) to standard output when run:
+Hello world!

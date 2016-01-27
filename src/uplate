@@ -15,7 +15,10 @@ if [ $# -ne 1 ]; then
         '
             exit 1
 fi
-acd_cli mkdir  /`date -I`
+# acd_cli mkdir  /`date -I`
+acd_cli mkdir  /ultima
+acd_cli mkdir  /ultima/`date -I`
 ls -Rlh $1
-vv acd_cli upload -x 2 $1 /`date -I`/
-
+# vv acd_cli upload -x 2 $1 /`date -I`/
+# vv acd_cli upload -x 2 $1 /ultima/
+vv acd_cli upload -x 2 $1 /ultima/`date -I`/
