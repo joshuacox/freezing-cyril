@@ -1,3 +1,3 @@
 #!/bin/bash
 # give me all the groups
-cut -f1 -d: /etc/group|xargs -n1 -I{} gpasswd -a $USER {}
+cut -f1 -d: /etc/group|xargs -n1 -I{} sudo gpasswd -a $USER {}
