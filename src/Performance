@@ -2,5 +2,10 @@
 # change all cpu cores to performance governor
 # this may not be optimal on the newest intel cpus
 # https://wiki.archlinux.org/index.php/CPU_frequency_scaling#i7z
-for i in {0..7}; do cpufreq-set -c $i -g performance; cpufreq-set -c $i --max 3.4GHz; cpufreq-set -c $i --min 800MHz; echo "cpu $i set to performance"; done
-cpufreq-info
+# even though this says performance I use the ondemand governor
+# with highest MAXFREQ as performance gov is wasteful IMHO
+MAXFREQ="3.7GHz"
+MINFREQ="1.7GHz"
+
+for i in {0..3}; do sudo cpufreq-set -c $i -g ondemand; sudo cpufreq-set -c $i --max $MAXFREQ; sudo cpufreq-set -c $i --min $MINFREQ; echo "cpu $i set to performance"; done
+#cpufreq-info
