@@ -1,0 +1,6 @@
+#!/bin/bash
+MAXFREQ="2.4GHz"
+MINFREQ="1.7GHz"
+
+for i in {0..3}; do sudo cpufreq-set -c $i -g conservative; sudo cpufreq-set -c $i --max $MAXFREQ; sudo cpufreq-set -c $i --min $MINFREQ; echo "cpu $i set to conservative"; done
+#cpufreq-info
