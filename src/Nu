@@ -26,6 +26,6 @@ sshfs -p $4 $3@$2:/ /mnt/$1
 ">/usr/local/bin/Mount$1
 chmod +x /usr/local/bin/Mount$1
 echo "#!/bin/bash
-ssh -p $4 $3@$2 \$@
+ssh -A -X -p $4 $3@$2 \$@
 ">/usr/local/bin/$1
 chmod +x /usr/local/bin/$1
