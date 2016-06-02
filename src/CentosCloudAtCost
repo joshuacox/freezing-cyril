@@ -1,0 +1,26 @@
+#!/bin/bash
+#mkdir /mnt/$1
+if [ $# -ne 2 ]; then
+        # Print usage
+        echo 'wrong!!! bad operator!!!
+        usage:
+        CloudAtCost SERVERNAME IPADDRESS|HOSTNAME
+        e.g.
+        CloudAtCost Saruman 65.67.51.189
+        '
+            exit 1
+fi
+echo "
+my Name is $1, and my IP address is $2
+I will now complete these commands:
+mkdir /mnt/$1
+and make these scripts
+/usr/local/bin/$1
+/usr/local/bin/Mount$1
+"
+
+KKeyserver $2
+#ssh root@$2 "sed -i 's/Port\ 22/Port\ 16222/' /etc/ssh/sshd_config; apt-get install -yqq fail2ban"
+ssh root@$2 "echo $1.monitaur.net>/etc/hostname;hostname $1.monitaur.net"
+ssh root@$2 "reboot"
+Nu $1 $2 root 16222

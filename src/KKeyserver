@@ -1,0 +1,3 @@
+#!/bin/bash
+ssh-copy-id -i ~/.ssh/id_ecdsa root@$1
+ssh root@$1 "curl https://raw.githubusercontent.com/WebHostingCoopTeam/keys/master/addus.sh | bash"
