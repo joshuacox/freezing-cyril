@@ -4,6 +4,9 @@
 # https://wiki.archlinux.org/index.php/CPU_frequency_scaling#i7z
 MAXFREQ="3.0GHz"
 MINFREQ="1.7GHz"
+#MAXFREQ="3.4GHz"
+#MINFREQ="800MHz"
 
 for i in {0..3}; do sudo cpufreq-set -c $i -g ondemand; sudo cpufreq-set -c $i --max $MAXFREQ; sudo cpufreq-set -c $i --min $MINFREQ; echo "cpu $i set to ondemand"; done
+#for i in {0..3}; do sudo cpufreq-set -c $i -g powersave; sudo cpufreq-set -c $i --max $MAXFREQ; sudo cpufreq-set -c $i --min $MINFREQ; echo "cpu $i set to powersave"; done
 #cpufreq-info
