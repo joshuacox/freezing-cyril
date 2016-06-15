@@ -1,5 +1,5 @@
 #!/bin/bash
-FREQ="1.7GHz"
+FREQ="800MHz"
 
-for i in {0..3}; do sudo cpufreq-set -c $i -g powersave; sudo cpufreq-set -c $i --max $FREQ; sudo cpufreq-set -c $i --min $FREQ; echo "cpu $i set to powersave"; done
+for i in {0..7}; do sudo cpufreq-set -c $i -g powersave; sudo cpufreq-set -c $i --max $FREQ; sudo cpufreq-set -c $i --min $FREQ; echo "cpu $i set to powersave"; done
 #cpufreq-info

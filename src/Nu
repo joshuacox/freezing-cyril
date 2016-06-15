@@ -16,16 +16,17 @@ your username is $3
 I will now complete these commands:
 mkdir /mnt/$1
 and make these scripts
-/usr/local/bin/$1
-/usr/local/bin/Mount$1
+~/bin/$1
+~/bin/Mount$1
 "
 
-mkdir /mnt/$1
+mkdir -p ~/bin
+mkdir -p ~/mnt/$1
 echo "#!/bin/bash
-sshfs -p $4 $3@$2:/ /mnt/$1
-">/usr/local/bin/Mount$1
-chmod +x /usr/local/bin/Mount$1
+sshfs -p $4 $3@$2:/ ~/mnt/$1
+">~/bin/Mount$1
+chmod +x ~/bin/Mount$1
 echo "#!/bin/bash
 ssh -A -X -p $4 $3@$2 \$@
-">/usr/local/bin/$1
-chmod +x /usr/local/bin/$1
+">~/bin/$1
+chmod +x ~/bin/$1
