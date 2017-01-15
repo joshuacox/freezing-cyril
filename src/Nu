@@ -1,32 +1,43 @@
 #!/bin/bash
-#mkdir /mnt/$1
 if [ $# -ne 4 ]; then
         # Print usage
-        echo 'wrong!!! bad operator!!!
-        usage:
-        Nu SERVERNAME IPADDRESS|HOSTNAME USERNAME PORT
-        e.g.
-        Nu Saruman 65.67.51.189 root 2222
+        echo 'Nu, by Josh Cox 2017.01.15
+  usage: Nu SERVERNAME USERNAME IPADDRESS|HOSTNAME PORT
+  This script creates a directory full of servernames which can be invoked to easily ssh into the server
+  or just to invoke a short command on the server
+  e.g.
+  Nu Saruman root 65.67.51.189 2222
+
+  extended usage examples:
+  Saruman 'uname -a'>helloworld
+  tar zcf - helloworld|Saruman 'zxvf -'
+  Saruman 'tar jcf - helloworld'|tar zxvf -
         '
             exit 1
 fi
+
+SERVERNAME=$1
+USERNAME=$2
+HOST=$3
+PORT=$4
+
 echo "
-my Name is $1, my port is $4, and my IP address is $2
-your username is $3
+my Name is $SERVERNAME, my port is $PORT, and my IP address is $HOST
+your username is $USERNAME
 I will now complete these commands:
-mkdir /mnt/$1
+mkdir /mnt/$SERVERNAME
 and make these scripts
-~/bin/$1
-~/bin/Mount$1
+~/bin/$SERVERNAME
+~/bin/Mount$SERVERNAME
 "
 
 mkdir -p ~/bin
-mkdir -p ~/mnt/$1
+mkdir -p ~/mnt/$SERVERNAME
 echo "#!/bin/bash
-sshfs -p $4 $3@$2:/ ~/mnt/$1
-">~/bin/Mount$1
-chmod +x ~/bin/Mount$1
+sshfs -p $PORT $USERNAME@$HOST:/ ~/mnt/$SERVERNAME
+">~/bin/Mount$SERVERNAME
+chmod +x ~/bin/Mount$SERVERNAME
 echo "#!/bin/bash
-ssh -A -X -p $4 $3@$2 \$@
-">~/bin/$1
-chmod +x ~/bin/$1
+ssh -A -X -p $PORT $USERNAME@$HOST \$@
+">~/bin/$SERVERNAME
+chmod +x ~/bin/$SERVERNAME
