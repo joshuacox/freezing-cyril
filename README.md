@@ -13,4 +13,4 @@ Beware there be dragons!
 just no lynchburg lemons
 
 one special script named 'freeze' will populate `/usr/local/bin` with
-all these goodies.
+all these goodies and leave itself out.
