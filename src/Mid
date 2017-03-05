@@ -1,12 +1,7 @@
 #!/bin/bash
-# change all cpu cores to performance governor
-# this may not be optimal on the newest intel cpus
-# https://wiki.archlinux.org/index.php/CPU_frequency_scaling#i7z
-# even though this says performance I use the ondemand governor
-# with highest MAXFREQ as performance gov is wasteful IMHO
-MAXFREQ=$(cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq)
+MAXFREQ=$(echo "$(cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq) * 0.5" | bc)
 MINFREQ=$(cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_min_freq)
-GOVERNOR=performance
+GOVERNOR=powersave
 
 command_exists () {
   type "$1" &> /dev/null ;

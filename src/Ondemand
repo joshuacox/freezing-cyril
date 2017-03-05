@@ -1,19 +1,20 @@
 #!/bin/bash
-# change all cpu cores to performance governor
 # this may not be optimal on the newest intel cpus
 # https://wiki.archlinux.org/index.php/CPU_frequency_scaling#i7z
-MAXFREQ=$(echo "$(cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq) - 400000" | bc)
+
+MAXFREQ=$(echo "$(cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq) * 0.75" | bc)
 MINFREQ=$(cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_min_freq)
+GOVERNOR=performance
 
 command_exists () {
   type "$1" &> /dev/null ;
 }
 
 if command_exists cpufreq-set; then
-  for i in {0..3}; do sudo cpufreq-set -c $i -g ondemand; sudo cpufreq-set -c $i --max $MAXFREQ; sudo cpufreq-set -c $i --min $MINFREQ; echo "cpu $i set to performance"; done
+  for i in {0..3}; do sudo cpufreq-set -c $i -g $GORVERNOR; sudo cpufreq-set -c $i --max $MAXFREQ; sudo cpufreq-set -c $i --min $MINFREQ; echo "cpu $i set to performance"; done
   cpufreq-info
 fi
 if command_exists cpupower; then
-  sudo cpupower frequency-set --min $MINFREQ --max $MAXFREQ --governor powersave
+  sudo cpupower frequency-set --min $MINFREQ --max $MAXFREQ --governor $GOVERNOR
   sudo cpupower frequency-info
 fi
