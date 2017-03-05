@@ -1,5 +1,15 @@
 #!/bin/bash
-FREQ="800MHz"
+FREQ=$(cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_min_freq)
 
-for i in {0..7}; do sudo cpufreq-set -c $i -g powersave; sudo cpufreq-set -c $i --max $FREQ; sudo cpufreq-set -c $i --min $FREQ; echo "cpu $i set to powersave"; done
+command_exists () {
+  type "$1" &> /dev/null ;
+}
+
+if command_exists cpufreq-set; then
+  for i in {0..7}; do sudo cpufreq-set -c $i -g powersave; sudo cpufreq-set -c $i --max $FREQ; sudo cpufreq-set -c $i --min $FREQ; echo "cpu $i set to powersave"; done
+fi
+if command_exists cpupower; then
+  sudo cpupower frequency-set --min $FREQ --max $FREQ --governor powersave
+  sudo cpupower frequency-info
+fi
 #cpufreq-info

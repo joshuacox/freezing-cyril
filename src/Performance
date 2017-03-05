@@ -4,8 +4,18 @@
 # https://wiki.archlinux.org/index.php/CPU_frequency_scaling#i7z
 # even though this says performance I use the ondemand governor
 # with highest MAXFREQ as performance gov is wasteful IMHO
-MAXFREQ="3.4GHz"
-MINFREQ="800MHz"
+MAXFREQ=$(cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq)
+MINFREQ=$(cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_min_freq)
 
-for i in {0..3}; do sudo cpufreq-set -c $i -g ondemand; sudo cpufreq-set -c $i --max $MAXFREQ; sudo cpufreq-set -c $i --min $MINFREQ; echo "cpu $i set to performance"; done
-#cpufreq-info
+command_exists () {
+  type "$1" &> /dev/null ;
+}
+
+if command_exists cpufreq-set; then
+  for i in {0..3}; do sudo cpufreq-set -c $i -g ondemand; sudo cpufreq-set -c $i --max $MAXFREQ; sudo cpufreq-set -c $i --min $MINFREQ; echo "cpu $i set to performance"; done
+  cpufreq-info
+fi
+if command_exists cpupower; then
+  sudo cpupower frequency-set --min $MINFREQ --max $MAXFREQ --governor performance
+  sudo cpupower frequency-info
+fi
