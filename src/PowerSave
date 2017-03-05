@@ -7,9 +7,9 @@ command_exists () {
 
 if command_exists cpufreq-set; then
   for i in {0..7}; do sudo cpufreq-set -c $i -g powersave; sudo cpufreq-set -c $i --max $FREQ; sudo cpufreq-set -c $i --min $FREQ; echo "cpu $i set to powersave"; done
+  cpufreq-info
 fi
 if command_exists cpupower; then
   sudo cpupower frequency-set --min $FREQ --max $FREQ --governor powersave
   sudo cpupower frequency-info
 fi
-#cpufreq-info
