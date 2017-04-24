@@ -1,0 +1,4 @@
+#!/bin/sh
+SCREEN1=eDP-1
+SCREEN2=HDMI-1
+xrandr --output $SCREEN1 --primary --output $SCREEN2 --left-of $SCREEN1 --rotate left

@@ -1,24 +1,47 @@
 #!/bin/bash
-# some collected methods from this page:
+# some collected methods gathered over the from pages like this:
+
 # http://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
 
 # turn into a function like this, and place in .bashrc
 # randpw(){ < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16};echo;}
 
-date +%s | sha256sum | base64 | head -c 32 ; echo
+re='^[0-9]+$'
+if ! [[ $1 =~ $re ]] ; then
+  PASS_LENGTH=32
+else
+  PASS_LENGTH=$1
+fi
 
-< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;
+# Some dates to use later
+DATE1=$(date +"%y-%m-%d-%H:%M:%S:%p:%N")
+DATE2=$(date +"%N:%y-%m-%d-%H:%M:%S:%P")
+DATE3=$(date +"%N-%S")
+DATE4=$(date +"%S-%N")
+SEED1=$(echo $DATE1:$DATE2 | sha256sum | base64 | head -c 256)
+SEED2=$(echo $SEED1:$DATE3 | md5sum)
 
-openssl rand -base64 32
 
-tr -cd '[:alnum:]' < /dev/urandom | fold -w30 | head -n1
+echo $SEED1 | sha256sum | base64 | head -c ${PASS_LENGTH} ; echo
+echo $SEED2 | sha256sum | base64 | head -c ${PASS_LENGTH} ; echo
+echo $DATE1 | sha256sum | base64 | head -c ${PASS_LENGTH} ; echo
+echo $DATE2 | sha256sum | base64 | head -c ${PASS_LENGTH} ; echo
+echo $DATE3 | sha256sum | base64 | head -c ${PASS_LENGTH} ; echo
+echo $DATE4 | sha256sum | base64 | head -c ${PASS_LENGTH} ; echo
+< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${PASS_LENGTH};echo;
+< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-${PASS_LENGTH}};echo;
+< /dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c${PASS_LENGTH}; echo ""
+strings /dev/urandom | grep -o '[[:alnum:]]' | head -n ${PASS_LENGTH} | tr -d '\n'; echo
+tr -cd '[:alnum:]' < /dev/urandom | fold -w${PASS_LENGTH} | head -n1
+echo $SEED1 | md5sum
+echo $SEED2 | md5sum
+echo $DATE1 | md5sum
+echo $DATE2 | md5sum
+echo $DATE3 | md5sum
+echo $DATE4 | md5sum
+openssl rand -base64 ${PASS_LENGTH}
+dd if=/dev/urandom bs=1 count=${PASS_LENGTH} 2>/dev/null | base64 -w 0 | rev | cut -b 2- | rev
 
-strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 30 | tr -d '\n'; echo
-
-< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c6
-
-dd if=/dev/urandom bs=1 count=32 2>/dev/null | base64 -w 0 | rev | cut -b 2- | rev
-
-</dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c8; echo ""
-
-date | md5sum
+#debug stuff
+#count=1
+#echo "$count";count=$(echo "$count + 1"|bc)
