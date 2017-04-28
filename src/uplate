@@ -4,7 +4,7 @@
 # in a directory by dATE
 if [ $# -ne 1 ]; then
         # Print usage
-        echo 'wrong!!! bad operator!!!
+        echo '
         usage:
         uplate NAME
         where NAME is a file or directory
@@ -16,9 +16,10 @@ if [ $# -ne 1 ]; then
             exit 1
 fi
 # acd_cli mkdir  /`date -I`
-acd_cli mkdir  /ultima
-acd_cli mkdir  /ultima/`date -I`
+#acd_cli mkdir  /ultima
+#acd_cli mkdir  /ultima/`date -I`
 ls -Rlh $1
 # vv acd_cli upload -x 2 $1 /`date -I`/
 # vv acd_cli upload -x 2 $1 /ultima/
-vv acd_cli upload -x 2 $1 /ultima/`date -I`/
+#vv acd_cli upload -x 2 $1 /ultima/`date -I`/
+rclone copy $1 ACD:/uplate/`date -I`/
