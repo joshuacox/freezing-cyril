@@ -16,5 +16,5 @@ if command_exists cpupower; then
   sudo cpupower frequency-info
 fi
 if command_exists powertop; then
-  sudo powertopa --auto-tune
+  sudo powertop --auto-tune
 fi
