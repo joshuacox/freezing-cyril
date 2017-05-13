@@ -15,3 +15,6 @@ if command_exists cpupower; then
   sudo cpupower frequency-set --min $MINFREQ --max $MAXFREQ --governor $GOVERNOR
   sudo cpupower frequency-info
 fi
+if command_exists powertop; then
+  sudo powertopa --auto-tune
+fi
