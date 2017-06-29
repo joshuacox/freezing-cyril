@@ -1,0 +1,32 @@
+#!/bin/bash
+# config
+# ~/.reveal.cfg &>/dev/null
+# export NET='10.0.23.0/24'
+# export PORT=80
+source ~/.reveal.cfg &>/dev/null
+
+# first arg is port
+# example:  80
+if [ -z ${1+x} ]
+  then
+    PORT=${PORT:-22}
+else
+    PORT=$1
+fi
+# second arg is the network
+# example: 192.168.0.0./24
+if [ -z ${2+x} ]
+  then
+    NET=${NET:-'192.168.1.0/24'}
+else
+    NET=$2
+fi
+
+# nmap command
+NMAP="nmap $NET -oG - -p $PORT --open"
+
+# show it to us
+echo ${NMAP}
+
+# run it
+${NMAP} | grep "Ports: $PORT"
