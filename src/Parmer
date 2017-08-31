@@ -1,32 +1,26 @@
 #!/bin/bash
 # parmer
 
-
 # Config
 APM=123
 SPINDOWN=242
+# Homedir overrides
+source ~/.parmer.cfg
 
+
+if [ -n "${1+1}" ]; then
+  echo "1 is defined"
+  DRIVE=$1
+fi
 
 # Main
 main() {
 
-  if [ $# -eq 0 ]
-    then
-      echo "No arguments supplied - printing help"
-		  usage
-		  exit 1
-  fi
-
-  local FIRST_ARG=$1
-
-	if [[ "$FIRST_ARG" == '-h' || "$FIRST_ARG" == '--help'  ]]; then
+	if [[ "$DRIVE" == '-h' || "$DRIVE" == '--help'  ]]; then
 		usage
 		exit 1
-	elif [[ "$FIRST_ARG" == '-l' || "$FIRST_ARG" == '--long'  ]]; then
-    longshots
-		exit 1
   else
-    parmit $FIRST_ARG
+    parmit $DRIVE
 	fi
 
 }
@@ -38,6 +32,11 @@ usage() {
 	echo -e "parmer\t\t /dev/sdb-     Uses HDparm to
 set your hard drive to the parameters in config above"
 	echo -e "parmer -h\t- give this help"
+	echo -e "config file --> ~/.parmer.cfg"
+	echo -e "\texport APM=123
+\texport SPINDOWN=242
+\texport DRIVE=/dev/sdb"
+
 }
 
 parmit () {
