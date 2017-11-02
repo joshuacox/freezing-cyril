@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ $# -ne 4 ]; then
         # Print usage
-        echo 'Nu, by Josh Cox 2017.01.15
+        echo 'Nu, by Josh Cox 2017.11.1
   usage: Nu SERVERNAME USERNAME IPADDRESS|HOSTNAME PORT
   This script creates a directory full of servernames which can be invoked to easily ssh into the server
   or just to invoke a short command on the server
@@ -38,6 +38,6 @@ sshfs -p $PORT $USERNAME@$HOST:/ ~/mnt/$SERVERNAME
 ">~/bin/Mount$SERVERNAME
 chmod +x ~/bin/Mount$SERVERNAME
 echo "#!/bin/bash
-ssh -A -X -p $PORT $USERNAME@$HOST \$@
+ssh -A -Y -p $PORT $USERNAME@$HOST \$@
 ">~/bin/$SERVERNAME
 chmod +x ~/bin/$SERVERNAME
