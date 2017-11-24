@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ $# -ne 2 ]; then
+        # Print usage
+        echo 'gitio, by Josh Cox 2017.11.1
+  usage: gitio URL_TO_SHORTEN VANITY
+  This script creates a  shortened url on git.io
+  e.g.
+  gitio https://raw.githubusercontent.com/joshuacox/reactionetes/master/bootstrap.sh reactionetes
+        '
+            exit 1
+fi
+
+echo "requesting shortening of $1 to https://git.io/$2"
+curl -i https://git.io -F "url=$1" -F "code=$2"
