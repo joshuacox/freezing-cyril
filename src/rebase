@@ -1,0 +1,14 @@
+#!/bin/bash
+
+BASE_IMG=$1
+ITERATE=$2
+
+# while loop
+countzero=0
+
+while [ $countzero -lt $ITERATE ]
+do
+  qemu-img create -f qcow2 -b $BASE_IMG.qcow2 $BASE_IMG-$countzero.qcow2
+  countzero=`expr $countzero + 1`
+done
+#end while
