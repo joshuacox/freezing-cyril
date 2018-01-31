@@ -2,6 +2,11 @@
 
 BASE_IMG=$1
 ITERATE=$2
+PWD=$(pwd)
+: ${KVM_RAM:=4096}
+: ${KVM_CPU:=2}
+: ${VERBOSITY:=0}
+: ${KVM_NET:='bridge=br0'}
 
 # while loop
 countzero=0
@@ -9,6 +14,18 @@ countzero=0
 while [ $countzero -lt $ITERATE ]
 do
   qemu-img create -f qcow2 -b $BASE_IMG.qcow2 $BASE_IMG-$countzero.qcow2
+
+  virt-install --connect qemu:///system \
+	--import \
+	--autostart \
+	--name $BASE_IMG-$countzero \
+	--ram $KVM_RAM \
+	--vcpus $KVM_CPU \
+	--os-type=linux \
+	--os-variant=virtio26 \
+	--disk path=$PWD/$BASE_IMG-$countzero.qcow2,format=qcow2,bus=virtio \
+	--network=$KVM_NET,$KVM_NET_MAC,model=virtio
+
   countzero=`expr $countzero + 1`
 done
 #end while
