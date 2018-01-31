@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ $# -ne 2 ]; then
+        # Print usage
+        echo 'hostname, by Josh Cox 2018.01.31
+usage: hostnamer HOSTNAME IP
+This script will set the Role of a node to node
+e.g.
+
+hostnamer xanadu 192.168.1.18
+
+'
+            exit 1
+fi
+MY_HOST=$1
+MY_IP=$2
+
+ssh -o StrictHostKeyChecking=no root@$MY_IP "hostname $MY_HOST && echo $MY_HOST > /etc/hostname && reboot"
