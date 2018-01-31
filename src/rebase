@@ -1,5 +1,21 @@
 #!/bin/bash
 
+if [ $# -ne 2 ]; then
+        # Print usage
+        echo 'rebase, by Josh Cox 2018.01.31
+usage: rebase IMAGE_BASENAME ITERATION_COUNT
+This script will create $ITERATION_COUNT rebased images
+sourced from the base $IMAGE_BASENAME.qcow2
+e.g.
+
+rebase xenial 3
+
+will create 3 images called xenial{0,1,2}.qcow2
+sourced from the base $IMAGE_BASENAME.qcow2
+'
+            exit 1
+fi
+
 BASE_IMG=$1
 ITERATE=$2
 PWD=$(pwd)
@@ -7,6 +23,11 @@ PWD=$(pwd)
 : ${KVM_CPU:=2}
 : ${VERBOSITY:=0}
 : ${KVM_NET:='bridge=br0'}
+
+echo "
+  I will create $ITERATION_COUNT images using qemu-img create -f qcow2 -b $BASE_IMG.qcow2 $BASE_IMG-$countzero.qcow2
+  And then use virt-install to create VMs using each newly created image
+ "
 
 # while loop
 countzero=0
