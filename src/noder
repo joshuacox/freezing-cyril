@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ $# -ne 1 ]; then
+        # Print usage
+        echo 'noder, by Josh Cox 2018.01.31
+usage: noder NODE_NAME
+This script will set the Role of a node to node
+e.g.
+
+noder node1-mynodely-nodington-node-node
+'
+            exit 1
+fi
+NODE_NAME=$1
+kubectl label node $NODE_NAME node-role.kubernetes.io/node=
